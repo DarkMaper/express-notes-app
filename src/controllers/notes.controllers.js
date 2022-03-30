@@ -24,6 +24,7 @@ const createNote = async (req, res) => {
 
     await newNote.save();
 
+    req.flash('success', 'Se ha creado la nota correctamente.');
     res.redirect('/');
 }
 
@@ -31,6 +32,8 @@ const deleteNote = async (req, res) => {
     const noteId = req.params.id;
     const userId = req.user._id;
     await Note.deleteOne({ _id: noteId, user: userId });
+
+    req.flash('success', 'Se ha borrado la nota correctamente.');
     res.redirect('/');
 }
 
@@ -56,6 +59,7 @@ const editNote = async (req, res) => {
 
     await note.save();
 
+    req.flash('success', 'Se ha editado la nota correctamente.');
     res.redirect('/');
 }
 
