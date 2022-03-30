@@ -10,34 +10,15 @@ passport.use('local', new Strategy({
 }, async (req, username, password, done) => {
     const user = await User.findOne({ username });
 
-    if(!user) return done(null, false);
+    if(!user) return done(null, false, req.flash('error', 'El usuario o la contraseña son incorrectos.'));
 
     const passwordMatch = await user.checkPassword(password);
 
     if(!passwordMatch) {
-        return done(null, false);
+        return done(null, false, req.flash('error', 'El usuario o la contraseña son incorrectos.'));
     }
 
     return done(null, user._id);
-}))
-
-passport.use('local-signup', new Strategy({
-    usernameField: 'username',
-    passwordField: 'password',
-    passReqToCallback: true
-}, async (req, username, password, done) => {
-    const user = await User.findOne({ username });
-
-    if(user) return done(null, false);
-
-    const { firstName, lastName, password2 } = req.body;
-    if(password !== password2) return done(null, false);
-
-    const newUser = User({ firstName, lastName, username, password});
-
-    await newUser.save();
-
-    done(null, newUser);
 }))
 
 passport.serializeUser((user, done) => {
