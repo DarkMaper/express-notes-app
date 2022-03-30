@@ -7,6 +7,7 @@ const session = require('express-session');
 const passport = require('passport');
 const MongoStore = require('connect-mongo');
 const methodOverride = require('method-override');
+const flash = require('connect-flash');
 const db = require('./database');
 const UserRoutes = require('./routes/users.routes');
 const NoteRoutes = require('./routes/notes.routes');
@@ -30,6 +31,7 @@ app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 app.set('views', join(__dirname, 'views'));
 app.use(express.static(join(__dirname, 'public')));
+app.use(flash());
 app.use(session({
     secret: process.env.SECRET,
     resave: false,
@@ -41,8 +43,7 @@ app.use(session({
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 8 * 1
     }
-}))
-
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -58,9 +59,15 @@ app.use(methodOverride(function(req, res) {
         return method;
     }
 }))
+
+// Globals
 app.use((req, res, next) => {
     app.locals.user = req.user;
     app.locals.loggedIn = req.user ? true : false;
+    app.locals.errorMsg = req.flash('error');
+    app.locals.successMsg = req.flash('success');
+    app.locals.infoMsg = req.flash('info');
+    app.locals.warningMsg = req.flash('warning');
     next();
 })
 
