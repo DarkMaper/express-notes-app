@@ -1,0 +1,33 @@
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-6">
+            {{#if errorMsg}}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{errorMsg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {{/if}}
+
+            {{#if successMsg}}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{successMsg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {{/if}}
+
+            {{#if warningMsg}}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{warningMsg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {{/if}}
+
+            {{#if infoMsg}}
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            {{infoMsg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
