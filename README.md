@@ -76,7 +76,3 @@ erDiagram
         string user FK
     }
 ```
-
-```mermaid
-    participant GitHub
-```
