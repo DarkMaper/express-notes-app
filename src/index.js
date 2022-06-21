@@ -24,6 +24,7 @@ const hbs = create({
     defaultLayout: 'main.hbs',
     extname: '.hbs'
 })
+
 // Configs
 
 app.set('port', process.env.PORT || 3000);
